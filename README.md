@@ -4,6 +4,25 @@
 
 The project aims to provide a modern, extensible foundation for process engineering applications while remaining independent of any specific simulation software.
 
+## Research Motivation
+
+ProcessGraph is designed as a research platform for next-generation industrial process modeling.
+
+Its long-term goal is to combine graph-based modeling, scientific computing, optimization, and AI into a unified open-source framework.
+
+v0.1  Graph Core
+   │
+v0.2  Process Components
+   │
+v0.3  Equation System
+   │
+v0.4  Visualization
+   │
+v0.5  Optimization
+   │
+v1.0  Stable API
+
+
 ## Vision
 
 The core idea of ProcessGraph is to separate the **graph engine** from the **process engineering domain**.
@@ -28,6 +47,23 @@ This architecture enables ProcessGraph to serve as a foundation for:
 
 ---
 
+## Quick Example
+
+```python
+from processgraph import ProcessGraph
+from processgraph import Node
+
+graph = ProcessGraph()
+
+pump = Node(label="Pump")
+reactor = Node(label="Reactor")
+
+graph.add_node(pump)
+graph.add_node(reactor)
+
+graph.connect(pump, reactor)
+```
+
 ## Design Principles
 
 ProcessGraph is developed around a few simple principles:
@@ -42,7 +78,7 @@ ProcessGraph is developed around a few simple principles:
 
 ## Current Status
 
-🚧 Early development (Version 0.1)
+Build | Tests | Coverage | License | Python Version
 
 Current focus:
 
@@ -94,3 +130,8 @@ Future extensions may include:
 ## License
 
 A suitable open-source license (likely MIT) will be added before the first stable release.
+
+●────●────●
+│
+●────●
+ProcessGraph
