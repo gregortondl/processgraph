@@ -2,7 +2,7 @@ from processgraph.node import Node
 from processgraph.edge import Edge
 
 
-class ProcessGraph:
+class Graph:
     """A graph of nodes connected by edges."""
 
     def __init__(self):
@@ -56,6 +56,32 @@ class ProcessGraph:
                 successors.append(edge.target)
 
         return successors
+    
+    def predecessors(self, node: Node) -> list[Node]:
+        """Return all direct predecessor nodes."""
+
+        predecessors = []
+
+        for edge in self.edges:
+            if edge.target == node:
+                predecessors.append(edge.source)
+
+        return predecessors
+
+            
+    def neighbors(self, node: Node) -> list[Node]:
+        """Return all neighboring nodes."""
+
+        neighbors = []
+
+        for edge in self.edges:
+            if edge.source == node:
+                neighbors.append(edge.target)
+
+            elif edge.target == node:
+                neighbors.append(edge.source)
+
+        return neighbors
 
     def connect(self, source: Node, target: Node) -> None:
         """Connect two nodes."""
