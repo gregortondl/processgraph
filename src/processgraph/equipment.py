@@ -1,13 +1,11 @@
 from dataclasses import dataclass, field
 
+from processgraph.node import Node
+
 
 @dataclass
-class Equipment:
-   
-    """
-    Base class for all process equipment.
+class Equipment(Node):
+    """Base class for all process equipment."""
 
-    Equipment is connected to the process graph through nodes.
-    """
-    label: str
-    properties: dict = field(default_factory=dict)
+    resources: list = field(default_factory=list)
+

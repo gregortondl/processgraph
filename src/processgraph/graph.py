@@ -1,8 +1,11 @@
-from cProfile import label
 
-from processgraph import edge
+
+
+
 from processgraph.node import Node
 from processgraph.edge import Edge
+from processgraph.stream import Stream
+from processgraph.equipment import Equipment
 
 
 class Graph:
@@ -12,6 +15,9 @@ class Graph:
         self.nodes: dict[str, Node] = {}
         self.edges: list[Edge] = []
 
+        self.equipment: dict[str, Equipment] = {}
+        self.streams: dict[str, Stream] = {}
+
     def add_node(self, node: Node) -> None:
         """Add a node to the graph."""
 
@@ -19,6 +25,37 @@ class Graph:
             raise ValueError(f"Node '{node.label}' already exists.")
 
         self.nodes[node.label] = node
+
+    def add_equipment(self, equipment: Equipment) -> None:
+        """Add equipment to the graph."""
+
+        self.add_node(equipment)
+        self.equipment[equipment.label] = equipment
+
+    def add_stream(self, stream: Stream) -> None:
+        """Add a stream to the graph."""
+
+        self.streams[stream.label] = stream
+
+        self.connect(
+        stream.source,
+        stream.target,
+             )
+        
+    def get_stream(self, label: str) -> Stream:
+         """Return a stream by label."""
+
+         return self.streams[label] 
+
+    def find_stream(self, label: str) -> Stream | None:
+         """Return a stream by label or None if it does not exist."""
+
+         return self.streams.get(label)
+    
+    def contains_stream(self, label: str) -> bool:
+         """Return True if a stream with the given label exists."""
+
+         return label in self.streams
 
     def remove_node(self, node: Node) -> None:
         """Remove a node from the graph."""
@@ -177,3 +214,17 @@ class Graph:
         )
 
         self.add_edge(edge)
+
+    
+
+    def disconnect(self, source: Node, target: Node) -> None:
+        """Disconnect two nodes."""
+
+        for edge in self.edges.copy():
+            if edge.source == source and edge.target == target:
+                self.remove_edge(edge)
+                return
+
+        raise ValueError(
+            f"Edge '{source.label} -> {target.label}' does not exist."
+        )

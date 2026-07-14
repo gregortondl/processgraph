@@ -1,82 +1,122 @@
 # ProcessGraph
 
-**ProcessGraph** is an open-source Python framework for graph-based modeling of industrial process systems.
+**ProcessGraph** is an open-source Python framework for building AI-ready knowledge graphs of industrial process systems.
 
-The project provides a lightweight and extensible graph engine as the foundation for process engineering, scientific computing, optimization, and AI-assisted engineering applications.
+Instead of focusing solely on process simulation, ProcessGraph combines process topology, engineering knowledge, scientific data, and technical documentation within a unified graph architecture.
+
+The project is designed as a foundation for next-generation engineering applications powered by artificial intelligence.
 
 ---
 
 ## Vision
 
-ProcessGraph separates the **graph engine** from the **process engineering domain**.
+Modern process plants generate information from many different sources:
+
+- Process topology
+- Equipment data
+- Material streams
+- Technical documentation
+- Laboratory analyses
+- Simulation models
+- Scientific publications
+- Operating experience
+
+ProcessGraph aims to connect all of this information in a single, extensible knowledge graph.
 
 ```
-                ProcessGraph Core
-                        │
-        ┌───────────────┼────────────────┐
-        │               │                │
-        ▼               ▼                ▼
- Process Engineering  Energy Systems  AI Applications
+                   AI Engineering Assistant
+                              │
+                ┌─────────────┴─────────────┐
+                │                           │
+         Knowledge Graph              Scientific Data
+                │                           │
+        ┌───────┼────────┐                  │
+        │       │        │                  │
+        ▼       ▼        ▼                  ▼
+    Equipment  Streams  Documents      Laboratory Analysis
+                │
+                ▼
+         Process Topology
 ```
 
-The graph core remains independent of thermodynamics, process simulation, and optimization. Domain-specific functionality is built on top of the graph rather than being embedded into it.
-
-This architecture enables ProcessGraph to evolve into a flexible research platform for:
-
-- Industrial process modeling
-- Process simulation
-- Digital twins
-- Equation-based modeling
-- Optimization
-- AI-assisted engineering
-- Reinforcement learning environments
+The long-term goal is not simply to simulate process plants, but to create a digital engineering knowledge base that AI systems can understand, analyze, and extend.
 
 ---
 
-## Core Architecture
+## Architecture
 
-The current architecture is intentionally simple.
+ProcessGraph is developed in four independent layers.
 
 ```
-Graph
+ProcessGraph
 │
-├── Node
-├── Edge
-└── Equipment
-```
-
-Future extensions will introduce additional layers while keeping the graph core independent.
-
-```
-Graph
+├── Graph Layer
+│   ├── Graph
+│   ├── Node
+│   ├── Edge
+│   └── Stream
 │
-├── Node
-├── Edge
-└── Equipment
-      │
-      └── Stream
-            │
-            ├── Thermodynamics
-            ├── Reaction Models
-            └── Process Simulation
+├── Process Layer
+│   ├── Equipment
+│   ├── Pump
+│   ├── Reactor
+│   ├── Valve
+│   ├── HeatExchanger
+│   └── ...
+│
+├── Knowledge Layer
+│   ├── Resource
+│   ├── Document
+│   ├── Analysis
+│   ├── CAD Model
+│   ├── Image
+│   ├── Literature
+│   └── ...
+│
+└── AI Layer
+    ├── Retrieval
+    ├── Reasoning
+    ├── Recommendations
+    └── Engineering Assistants
 ```
+
+Each layer has a clearly defined responsibility and can evolve independently.
 
 ---
 
 ## Current Features
 
-The current implementation already provides:
+The current implementation provides:
+
+### Graph
 
 - Graph
 - Node
 - Edge
+
+### Equipment
+
 - Equipment (base class)
-- Graph traversal
-    - successors()
-    - predecessors()
-    - neighbors()
-- Edge validation
-- Duplicate edge protection
+- Pump (example implementation)
+
+### Graph Operations
+
+- add/remove nodes
+- add/remove edges
+- graph traversal
+  - successors()
+  - predecessors()
+  - neighbors()
+
+### Validation
+
+- self-loop detection
+- duplicate edge protection
+
+### Serialization
+
+- to_dict()
+- from_dict()
 
 ---
 
@@ -84,12 +124,12 @@ The current implementation already provides:
 
 ```python
 from processgraph.graph import Graph
-from processgraph.node import Node
+from processgraph.equipment import Pump
 
 graph = Graph()
 
-pump = Node(label="Pump")
-reactor = Node(label="Reactor")
+pump = Pump(label="P-101")
+reactor = Pump(label="R-101")
 
 graph.add_node(pump)
 graph.add_node(reactor)
@@ -103,13 +143,14 @@ print(graph.successors(pump))
 
 ## Design Principles
 
-ProcessGraph is built around a few simple principles:
+ProcessGraph follows a few fundamental principles.
 
 - Graph-first architecture
-- Small and extensible core
-- Clear separation of graph, engineering, and simulation
-- Modern Python development practices
-- AI-ready architecture
+- Knowledge-first engineering
+- Separation of graph, process, knowledge, and AI
+- Lightweight and extensible core
+- AI-ready data structures
+- Modern Python development
 - Open-source and research-oriented
 
 ---
@@ -118,14 +159,33 @@ ProcessGraph is built around a few simple principles:
 
 Future development will include:
 
+### Process Engineering
+
 - Process equipment library
-- Material stream models
-- Thermodynamic property packages
-- Equation-based simulation
-- Optimization algorithms
-- Interactive visualization
-- NetworkX interoperability
-- AI integration through modern LLM APIs
+- Material streams
+- Thermodynamic models
+- Reaction models
+- Process simulation
+
+### Knowledge Management
+
+- Technical documentation
+- CAD models
+- P&ID diagrams
+- Laboratory analyses
+- Scientific publications
+- Experimental datasets
+- Operating history
+
+### Artificial Intelligence
+
+- Retrieval-Augmented Generation (RAG)
+- Engineering assistants
+- Knowledge-based reasoning
+- Process optimization
+- Design recommendations
+- Automated documentation
+- AI-supported process analysis
 
 ---
 
@@ -139,7 +199,8 @@ processgraph/
 │       ├── graph.py
 │       ├── node.py
 │       ├── edge.py
-│       └── equipment.py
+│       ├── equipment.py
+│       └── ...
 │
 ├── sandbox/
 ├── README.md
@@ -152,9 +213,9 @@ processgraph/
 
 ## Development Status
 
-ProcessGraph is currently under active development.
+ProcessGraph is currently in active development.
 
-The focus of the current development phase is the implementation of a robust and well-tested graph core before expanding into process engineering functionality.
+The current focus is the implementation of a robust graph core and the process domain before expanding into the knowledge and AI layers.
 
 ---
 
