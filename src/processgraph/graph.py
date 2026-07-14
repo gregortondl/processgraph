@@ -1,3 +1,6 @@
+from cProfile import label
+
+from processgraph import edge
 from processgraph.node import Node
 from processgraph.edge import Edge
 
@@ -17,10 +20,32 @@ class Graph:
 
         self.nodes[node.label] = node
 
+    def remove_node(self, node: Node) -> None:
+        """Remove a node from the graph."""
+
+        for edge in self.edges.copy():
+            if edge.source == node or edge.target == node:
+                self.remove_edge(edge)
+
+
+        del self.nodes[node.label]
+
     def get_node(self, label: str) -> Node:
         """Return a node by label."""
 
         return self.nodes[label]
+    
+        
+    
+    def find_node(self, label: str) -> Node | None:
+        """Return a node by label or None if it does not exist."""
+
+        return self.nodes.get(label)
+    
+    def contains_node(self, label: str) -> bool:
+        """Return True if a node with the given label exists."""
+
+        return label in self.nodes
 
     def add_edge(self, edge: Edge) -> None:
         """Add an edge to the graph."""
@@ -35,7 +60,11 @@ class Graph:
             raise ValueError(f"Edge '{edge.source.label} -> {edge.target.label}' already exists.")
 
         self.edges.append(edge)
-        
+
+    def remove_edge(self, edge: Edge) -> None:
+        """Remove an edge from the graph."""
+
+        self.edges.remove(edge)  
     
     def has_edge(self, source: Node, target: Node) -> bool:
         """Return True if an edge exists."""
@@ -82,6 +111,62 @@ class Graph:
                 neighbors.append(edge.source)
 
         return neighbors
+
+    def validate(self) -> list[str]:
+        """Validate the graph."""
+
+        errors = []
+
+        for edge in self.edges:
+            if edge.source == edge.target:
+                errors.append(f"Self-loop: '{edge.source.label}'.")
+
+        return errors
+    
+    def to_dict(self) -> dict:
+        """Return the graph as a dictionary."""
+
+        return {
+            "nodes": [
+                {
+                    "label": node.label,
+                    "properties": node.properties,
+                }
+                for node in self.nodes.values()
+            ],
+            "edges": [
+                {
+                    "source": edge.source.label,
+                    "target": edge.target.label,
+                }
+                for edge in self.edges
+            ],
+        
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "Graph":
+        """Create a graph from a dictionary."""
+
+        graph = cls()
+
+
+        for node_data in data["nodes"]:
+            node = Node(
+                label=node_data["label"],
+                properties=node_data["properties"],
+            )
+
+            graph.add_node(node)
+        for edge_data in data["edges"]:
+            source = graph.get_node(edge_data["source"])
+            target = graph.get_node(edge_data["target"])
+
+           
+            graph.connect(source, target)
+
+        return graph
+
 
     def connect(self, source: Node, target: Node) -> None:
         """Connect two nodes."""
