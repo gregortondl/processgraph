@@ -7,3 +7,24 @@ class Resource:
 
     name: str
     properties: dict = field(default_factory=dict)
+
+
+@dataclass
+class Datasheet(Resource):
+    """Equipment datasheet."""
+
+    pass
+
+
+@dataclass
+class Manual(Resource):
+    """Equipment manual."""
+
+    pass
+
+
+@dataclass
+class CADModel(Resource):
+    """CAD model."""
+
+    pass
