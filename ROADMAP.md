@@ -77,43 +77,38 @@ ProcessGraph is developed as a layered architecture. Each layer has a well-defin
 
 # Version 0.3 – Knowledge Layer
 
-**Goal:** Transform process models into engineering knowledge graphs.
+**Goal:** Attach engineering knowledge to process objects.
 
-## Resources
+## Equipment Resources
 
-- [ ] Resource
-- [ ] Document
-- [ ] Image
-- [ ] CAD Model
+- [ ] Resource base class
+- [ ] Datasheet
+- [ ] Manual
+- [ ] CAD model
 - [ ] P&ID
-- [ ] Simulation Model
+- [ ] Images
 
-## Scientific Data
+## Stream Analyses
 
-- [ ] Laboratory analyses
+- [ ] Analysis base class
 - [ ] ICP-OES
-- [ ] Ultimate analysis
-- [ ] Proximate analysis
 - [ ] CHNS
 - [ ] BET
 - [ ] FTIR
-- [ ] TGA
-- [ ] XRD
 - [ ] SEM
+- [ ] XRD
+- [ ] Experimental datasets
 
 ## Knowledge Management
 
-- [ ] Literature references
-- [ ] Operating history
-- [ ] Experimental datasets
 - [ ] Metadata
 - [ ] Resource linking
+- [ ] Search interface
 
----
 
 # Version 0.4 – AI Layer
 
-**Goal:** Enable AI-assisted engineering based on structured process knowledge.
+**Goal:** Enable AI-assisted engineering using the process knowledge graph.
 
 ## Retrieval
 
@@ -124,19 +119,16 @@ ProcessGraph is developed as a layered architecture. Each layer has a well-defin
 ## Engineering Intelligence
 
 - [ ] Engineering assistant
-- [ ] Design recommendations
 - [ ] Process analysis
+- [ ] Design recommendations
 - [ ] Knowledge-based reasoning
-- [ ] Automated documentation
 
 ## AI Interfaces
 
 - [ ] LLM integration
 - [ ] Agent tools
-- [ ] MCP support
 - [ ] API interfaces
 
----
 
 # Version 0.5 – Engineering Applications
 

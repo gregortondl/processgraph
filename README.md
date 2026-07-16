@@ -43,9 +43,11 @@ The long-term goal is not simply to simulate process plants, but to create a dig
 
 ---
 
+
+
 ## Architecture
 
-ProcessGraph is developed in four independent layers.
+ProcessGraph is developed in three independent layers.
 
 ```
 ProcessGraph
@@ -53,37 +55,43 @@ ProcessGraph
 ├── Graph Layer
 │   ├── Graph
 │   ├── Node
-│   ├── Edge
-│   └── Stream
+│   └── Edge
 │
 ├── Process Layer
 │   ├── Equipment
-│   ├── Pump
-│   ├── Reactor
-│   ├── Valve
-│   ├── HeatExchanger
-│   └── ...
+│   │     ├── Pump
+│   │     ├── Reactor
+│   │     ├── Valve
+│   │     ├── HeatExchanger
+│   │     └── ...
+│   │
+│   └── Stream
 │
-├── Knowledge Layer
-│   ├── Resource
-│   ├── Document
-│   ├── Analysis
-│   ├── CAD Model
-│   ├── Image
-│   ├── Literature
-│   └── ...
-│
-└── AI Layer
-    ├── Retrieval
-    ├── Reasoning
-    ├── Recommendations
-    └── Engineering Assistants
+└── Knowledge Layer
+    ├── Resource
+    │     ├── Datasheet
+    │     ├── Manual
+    │     ├── CADModel
+    │     ├── Image
+    │     └── ...
+    │
+    └── Analysis
+          ├── ICPOES
+          ├── CHNS
+          ├── BET
+          ├── FTIR
+          ├── SEM
+          ├── XRD
+          └── ...
 ```
 
-Each layer has a clearly defined responsibility and can evolve independently.
+The graph layer provides a lightweight and reusable graph engine.
 
----
+The process layer represents engineering concepts such as equipment and material streams.
 
+The knowledge layer stores engineering knowledge attached to process objects. Technical documentation is associated with equipment, while scientific analyses are associated with process streams.
+
+This separation keeps the graph core independent while allowing ProcessGraph to evolve into an AI-ready engineering knowledge platform.
 ## Current Features
 
 The current implementation provides:
@@ -141,19 +149,20 @@ print(graph.successors(pump))
 
 ---
 
+
+
 ## Design Principles
 
 ProcessGraph follows a few fundamental principles.
 
 - Graph-first architecture
-- Knowledge-first engineering
-- Separation of graph, process, knowledge, and AI
+- Engineering-first domain model
+- Separation of graph, process, and knowledge
+- Equipment owns engineering resources
+- Streams own scientific analyses
 - Lightweight and extensible core
-- AI-ready data structures
-- Modern Python development
+- AI-ready architecture
 - Open-source and research-oriented
-
----
 
 ## Long-Term Goals
 

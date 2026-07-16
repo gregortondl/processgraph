@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 from processgraph.equipment import Equipment
-
+from processgraph.analysis import Analysis
 
 @dataclass
 class Stream:
@@ -13,4 +13,4 @@ class Stream:
     target: Equipment
 
     properties: dict = field(default_factory=dict)
-    resources: list = field(default_factory=list)
+    analyses: list[Analysis] = field(default_factory=list)

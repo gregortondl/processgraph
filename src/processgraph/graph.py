@@ -32,6 +32,30 @@ class Graph:
         self.add_node(equipment)
         self.equipment[equipment.label] = equipment
 
+    def get_equipment(self, label: str) -> Equipment:
+        """Return equipment by label."""
+
+        return self.equipment[label]
+    
+    def find_equipment(self, label: str) -> Equipment | None:
+        """Return equipment by label or None if it does not exist."""
+
+        return self.equipment.get(label)
+    
+    def contains_equipment(self, label: str) -> bool:
+        """Return True if equipment with the given label exists."""
+
+        return label in self.equipment
+    
+    def remove_equipment(self, equipment: Equipment) -> None:
+        """Remove equipment from the graph."""
+
+        self.remove_node(equipment)
+
+        del self.equipment[equipment.label]
+    
+
+
     def add_stream(self, stream: Stream) -> None:
         """Add a stream to the graph."""
 
