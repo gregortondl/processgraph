@@ -1,22 +1,23 @@
 from dataclasses import dataclass, field
+from typing import Any
 
 
-@dataclass
+@dataclass(slots=True)
 class Analysis:
     """Base class for scientific analyses."""
 
     name: str
-    properties: dict = field(default_factory=dict)
+    properties: dict[str, Any] = field(default_factory=dict)
 
 
-@dataclass
+@dataclass(slots=True)
 class ICPOES(Analysis):
     """ICP-OES analysis."""
 
     pass
 
 
-@dataclass
+@dataclass(slots=True)
 class CHNS(Analysis):
     """CHNS analysis."""
 

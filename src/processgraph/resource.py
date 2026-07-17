@@ -1,29 +1,30 @@
 from dataclasses import dataclass, field
+from typing import Any
 
 
-@dataclass
+@dataclass(slots=True)
 class Resource:
     """Base class for engineering resources."""
 
     name: str
-    properties: dict = field(default_factory=dict)
+    properties: dict[str, Any] = field(default_factory=dict)
 
 
-@dataclass
+@dataclass(slots=True)
 class Datasheet(Resource):
     """Equipment datasheet."""
 
     pass
 
 
-@dataclass
+@dataclass(slots=True)
 class Manual(Resource):
     """Equipment manual."""
 
     pass
 
 
-@dataclass
+@dataclass(slots=True)
 class CADModel(Resource):
     """CAD model."""
 

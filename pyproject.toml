@@ -7,8 +7,20 @@ authors = [
     { name = "Gregor Tondl", email = "gregor.tondl@boku.ac.at" }
 ]
 requires-python = ">=3.12"
+
 dependencies = []
+
+
+[project.optional-dependencies]
+dev = [
+    "mypy",
+    "pytest",
+]
 
 [build-system]
 requires = ["uv_build>=0.11.25,<0.12.0"]
 build-backend = "uv_build"
+
+[tool.mypy]
+python_version = "3.12"
+exclude = '(^|.*/)sandbox/'

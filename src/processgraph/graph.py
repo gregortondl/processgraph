@@ -6,12 +6,14 @@ from processgraph.node import Node
 from processgraph.edge import Edge
 from processgraph.stream import Stream
 from processgraph.equipment import Equipment
+from typing import Any
+
 
 
 class Graph:
     """A graph of nodes connected by edges."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.nodes: dict[str, Node] = {}
         self.edges: list[Edge] = []
 
@@ -25,6 +27,8 @@ class Graph:
             raise ValueError(f"Node '{node.label}' already exists.")
 
         self.nodes[node.label] = node
+
+    
 
     def add_equipment(self, equipment: Equipment) -> None:
         """Add equipment to the graph."""
@@ -61,10 +65,12 @@ class Graph:
 
         self.streams[stream.label] = stream
 
+       
+        
         self.connect(
-        stream.source,
-        stream.target,
-             )
+            self.get_node(stream.source),
+            self.get_node(stream.target),
+                                )
         
     def get_stream(self, label: str) -> Stream:
          """Return a stream by label."""
@@ -139,7 +145,7 @@ class Graph:
     def successors(self, node: Node) -> list[Node]:
         """Return all direct successor nodes."""
 
-        successors = []
+        successors: list[Node] = []
 
         for edge in self.edges:
             if edge.source == node:
@@ -150,7 +156,7 @@ class Graph:
     def predecessors(self, node: Node) -> list[Node]:
         """Return all direct predecessor nodes."""
 
-        predecessors = []
+        predecessors: list[Node] = []
 
         for edge in self.edges:
             if edge.target == node:
@@ -162,7 +168,7 @@ class Graph:
     def neighbors(self, node: Node) -> list[Node]:
         """Return all neighboring nodes."""
 
-        neighbors = []
+        neighbors: list[Node] = []
 
         for edge in self.edges:
             if edge.source == node:
@@ -176,7 +182,7 @@ class Graph:
     def validate(self) -> list[str]:
         """Validate the graph."""
 
-        errors = []
+        errors: list[str] = []
 
         for edge in self.edges:
             if edge.source == edge.target:
@@ -184,7 +190,7 @@ class Graph:
 
         return errors
     
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, object]:
         """Return the graph as a dictionary."""
 
         return {
@@ -206,7 +212,7 @@ class Graph:
         }
     
     @classmethod
-    def from_dict(cls, data: dict) -> "Graph":
+    def from_dict(cls, data: dict[str, Any]) -> "Graph":
         """Create a graph from a dictionary."""
 
         graph = cls()
